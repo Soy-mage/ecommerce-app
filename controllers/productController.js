@@ -18,3 +18,26 @@ exports.createProduct = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getSpecificProduct = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await Product.getSpecific(parseInt(id, 10));
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+      });
+    }
+
+    res.status(200).send(product);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch the product. Please try again later.',
+    });
+  }
+};
