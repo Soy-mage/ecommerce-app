@@ -4,20 +4,28 @@ const bcrypt = require('bcrypt');
 const UserModel = {
     async createUser(username, email, password) {
         try {
-            // Hash the password before saving to the database
+            await pool.query('BEGIN');
+
             const hashedPassword = await bcrypt.hash(password, 10);
 
             const result = await pool.query(
-                `INSERT INTO users (username, email, password) 
-                 VALUES ($1, $2, $3) RETURNING id, username, email`,
+                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email',
                 [username, email, hashedPassword]
             );
+            const newUser = result.rows[0];
 
-            return result.rows[0];
+            await pool.query(
+                'INSERT INTO cart (username, user_id) VALUES ($1, $2)',
+                [newUser.username, newUser.id]
+            );
+
+            await pool.query('COMMIT');
+            return newUser;
         } catch (error) {
-            console.error('Error creating user:', error.message);
-            throw new Error('Failed to create user');
-        }
+            await pool.query('ROLLBACK');
+            console.error('Error creating user and cart:', error.message);
+            throw new Error('Failed to create user and cart');
+        } 
     },
 
     // currently unused
