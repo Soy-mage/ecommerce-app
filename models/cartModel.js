@@ -84,9 +84,6 @@ const CartModel = {
     },
     async createNewOrder(userId) {
         try {
-            // Start a transaction
-            await pool.query('BEGIN');
-
             // Create the order
             const orderResult = await pool.query(
                 'INSERT INTO orders (user_id) VALUES ($1) RETURNING *',
@@ -94,6 +91,10 @@ const CartModel = {
             );
             const order = orderResult.rows[0];
             console.log(order);
+
+            // Start a transaction
+            await pool.query('BEGIN');
+
             // Fetch cart items
             const cartItems = await pool.query(
                 'SELECT * FROM cart_items WHERE user_id = $1',
