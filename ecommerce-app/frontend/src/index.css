@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: bisque;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar .logo {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar .nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.navbar .nav-links li {
+  margin: 0 10px;
+}
+
+.navbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navbar .nav-links a:hover {
+  color: #00bcd4;
+}
+
+.navbar .cta {
+  background-color: #00bcd4;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.navbar .cta:hover {
+  background-color: #019ca1;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.product {
+  margin: 1rem;
+  animation: fadeIn ease 2s;
+  -webkit-animation: fadeIn ease 2s;
+  -moz-animation: fadeIn ease 2s;
+  -o-animation: fadeIn ease 2s;
+  -ms-animation: fadeIn ease 2s;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
+
+ /* .product:hover { transform: scale(1.1); box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); }  */
+
+
+.product-image {
+  width: 15rem;
+  -webkit-transition: all .5s;
+      -moz-transition: all .5s;
+      transition: all .5s;
+}
+
+.prices {
+  display: flex;
+  flex-direction: row;
+}
+
+.prices h3 {
+  margin: auto;
+}
+
+.prices a {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+}
+
+
+.prices a img {
+  width: 1.2rem;
+  height: 1.4rem;
+}
+
+.prices a h3 {
+  color:#74A1D3
+}
+
+.message {
+  position: absolute;
+  display: none;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.container:hover .message {
+  display: block;
+}
