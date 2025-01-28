@@ -1,0 +1,3 @@
+products - get all, get specific, ?create?, ??delete??, ??update??
+users - create, request, update, delete
+orders (including orders_items) - create, request, delete
