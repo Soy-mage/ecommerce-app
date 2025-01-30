@@ -17,8 +17,8 @@ export const fetchProducts = () => {
         const product = { name: response.data.name, ...response.data };
         dispatch({ type: 'FETCH_PRODUCTS_SUCCESS', payload: product });
 
-        // Add a 20ms delay after each fetch
-        await delay(100);
+        // Scryfall recommends at least 20ms delay. DO NOT MODIFY!! I DON'T WANNA GET BANNED
+        await delay(30);
       }
     } catch (error) {
       dispatch({ type: 'FETCH_PRODUCTS_FAILURE', payload: error.message });

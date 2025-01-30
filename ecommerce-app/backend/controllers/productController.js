@@ -41,3 +41,44 @@ exports.getSpecificProduct = async (req, res) => {
     });
   }
 };
+
+exports.updateProduct = async (req, res) => {
+  const { tcgplayerId, price, quantity, foil } = req.body;
+
+  try {
+    const updatedProduct = await Product.update(parseInt(tcgplayerId, 10), {
+      quantity,
+      price,
+      foil,
+    });
+
+    if (!updatedProduct) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully',
+      data: updatedProduct,
+    });
+
+
+  } catch (error) {
+    console.log(error.message);
+
+    if (error.message === 'No valid fields provided for update.') {
+      return res.status(400).json({
+        success: false,
+        message: error.message,
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update the product. Please try again later.',
+    });
+  }
+};

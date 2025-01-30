@@ -13,9 +13,11 @@ body {
   0% {
     opacity: 0;
   }
+
   50% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -27,6 +29,13 @@ body {
   align-items: center;
   background-color: #333;
   padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+}
+
+.spacer {
+  margin: auto;
+  height: 60px;
 }
 
 .navbar .logo {
@@ -39,6 +48,7 @@ body {
 .navbar .nav-links {
   display: flex;
   list-style: none;
+  color: white;
 }
 
 .navbar .nav-links li {
@@ -74,7 +84,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .product {
@@ -87,14 +97,45 @@ body {
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
 }
 
- /* .product:hover { transform: scale(1.1); box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); }  */
+.product-details {
+  margin: 1rem;
+  animation: fadeIn ease 2s;
+  -webkit-animation: fadeIn ease 2s;
+  -moz-animation: fadeIn ease 2s;
+  -o-animation: fadeIn ease 2s;
+  -ms-animation: fadeIn ease 2s;
+}
+
+.product:hover .product-name {
+  opacity: 0.92;
+}
+
+.product-name {
+  display: block;
+  background: #353b41;
+  border-radius: 5px;
+  color: #f9fafb;
+  font-size: 12px;
+  margin-bottom: 0px;
+  max-width: 200px;
+  overflow: hidden;
+  opacity: 0;
+  padding: .25rem;
+  position: relative;
+  text-overflow: ellipsis;
+  bottom: -334px;
+  left: 20px;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
 
 
 .product-image {
   width: 15rem;
   -webkit-transition: all .5s;
-      -moz-transition: all .5s;
-      transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
 }
 
 .prices {
@@ -104,6 +145,7 @@ body {
 
 .prices h3 {
   margin: auto;
+  color: #16c42d;
 }
 
 .prices a {
@@ -120,17 +162,41 @@ body {
 }
 
 .prices a h3 {
-  color:#74A1D3
+  color: #74A1D3
 }
 
-.message {
-  position: absolute;
-  display: none;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+.admin-page {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.section {
+  margin-bottom: 20px;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.container:hover .message {
+label {
   display: block;
+  margin: 10px 0;
+}
+
+input[type='checkbox'] {
+  margin-right: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3 
 }
