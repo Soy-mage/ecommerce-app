@@ -104,6 +104,8 @@ body {
   -moz-animation: fadeIn ease 2s;
   -o-animation: fadeIn ease 2s;
   -ms-animation: fadeIn ease 2s;
+  display: flex;
+  flex-direction: row;
 }
 
 .product:hover .product-name {
@@ -133,6 +135,33 @@ body {
 
 .product-image {
   width: 15rem;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  transition: all .5s;
+}
+
+.simple {
+  width: 40rem;
+}
+
+.extended-info {
+  width: 40rem;
+  background-color: white;
+  border: #333;
+  border-radius: 10px;
+  border-color:#333;
+}
+
+.extended-info h1 {
+  margin-top: 2rem;
+}
+
+.extended-info h2 {
+  margin-top: 2rem;
+}
+
+.product-details .product-image {
+  width: 25rem;
   -webkit-transition: all .5s;
   -moz-transition: all .5s;
   transition: all .5s;

@@ -1,11 +1,11 @@
 import './App.css';
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import React, {useEffect, useState} from 'react';
+import { useDispatch } from 'react-redux';
 import NavBar from './components/NavBar.js';
 import Products from './components/Products.js';
 import ProductDetails from './components/ProductDetails.js';
 import Admin from './components/Admin.js';
+import { fetchProducts } from './redux/actions/fetchProducts.js';
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,8 +13,18 @@ import {
 } from "react-router-dom";
 
 function App() {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    dispatch(fetchProducts()).then(() => setLoading(false));
+  }, [dispatch]);
+
+
+  if (loading) return <h1>Loading...</h1>;
+
   return (
-    <Provider store={store}>
       <Router>
         <div className="App">
           <NavBar />
@@ -24,13 +34,12 @@ function App() {
               <Route path="/" element={<Products />} />
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/:id" element={<ProductDetails />} />
+              <Route path="/:tcgplayerId" element={<ProductDetails />} />
               <Route path="/696969" element={<Admin />} />
             </Routes>
           </div>
         </div>
       </Router>
-    </Provider>
   );
 }
 

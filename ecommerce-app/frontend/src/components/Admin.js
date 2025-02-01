@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchProducts } from '../redux/actions/fetchProducts';
+import { scryfallFetch } from '../redux/actions/scryfallFetch';
+import { updateProduct } from '../api-calls/updateProduct';
 
 const Admin = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products); // Get products from Redux state
-
-  // State for selected product, foil, quantity, and new product tcgplayerId
+  const scryfall = useSelector((state) => state.scryfall.scryfall);
+  const scryfallIds = [];
+  for (let i = 0; i < products.length; i++) {
+    scryfallIds.push(products[i].tcgplayer_id);
+  }
   const [selectedProductId, setSelectedProductId] = useState('');
   const [foil, setFoil] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [newProductTcgplayerId, setNewProductTcgplayerId] = useState('');
 
-  // Handle product selection from dropdown
   const handleProductSelect = (e) => {
     const productId = e.target.value;
     setSelectedProductId(productId);
 
-    // Find the selected product and set its current foil and quantity values
     const selectedProduct = products.find((p) => p.id === parseInt(productId, 10));
     if (selectedProduct) {
       setFoil(selectedProduct.foil || false);
@@ -24,7 +28,6 @@ const Admin = () => {
     }
   };
 
-  // Handle updating the selected product
   const handleUpdateProduct = () => {
     if (selectedProductId) {
       //backend action
@@ -36,32 +39,59 @@ const Admin = () => {
     }
   };
 
-  // Handle adding a new product
   const handleAddProduct = () => {
     if (newProductTcgplayerId) {
         //backend action
 
 
-      setNewProductTcgplayerId(''); // Clear the input
+      setNewProductTcgplayerId('');
       alert('Product added successfully!');
     } else {
       alert('Please enter a valid tcgplayer ID.');
     }
   };
 
-  // Handle deleting a product
   const handleDeleteProduct = () => {
     if (selectedProductId) {
         //backend action
 
 
-      setSelectedProductId(''); // Reset the selected product
+      setSelectedProductId('');
       alert('Product deleted successfully!');
     } else {
       alert('Please select a product to delete.');
     }
   };
+ 
+  useEffect(() => {
+    dispatch(scryfallFetch(scryfallIds));
+    }, [dispatch]);
 
+  const handleScryfallDailyUpdate = async () => {
+    try {
+  
+      for (let i = 0; i < scryfall.length; i++) {
+        const product = scryfall[i];
+        const tcgplayer_id = product.tcgplayer_id;
+        const fields = {
+          foil: product.foil,
+          price: product.prices.usd,
+          image_uri: product.image_uris.normal,
+          description: product.oracle_text,
+          set_name: product.set_name,
+        }
+        await updateProduct(tcgplayer_id, fields);
+  
+        console.log(`Updated product with tcgplayer_id: ${tcgplayer_id}`);
+      }
+  
+      console.log('All products updated successfully.');
+    } catch (error) {
+      console.error('Error updating products:', error.message);
+    }
+  };
+
+ 
   return (
     <div className="admin-page">
       <h1>Admin Dashboard</h1>
@@ -117,6 +147,9 @@ const Admin = () => {
           />
         </label>
         <button onClick={handleAddProduct}>Add Product</button>
+      </div>
+      <div className="section">
+          <button onClick={handleScryfallDailyUpdate}>MANUAL SCRYFALL UPDATE</button>
       </div>
     </div>
   );

@@ -43,13 +43,17 @@ exports.getSpecificProduct = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
-  const { tcgplayerId, price, quantity, foil } = req.body;
+  const { tcgplayer_Id } = req.params;
+  const { price, quantity, foil, image_uri, description, set_name } = req.body;
 
   try {
-    const updatedProduct = await Product.update(parseInt(tcgplayerId, 10), {
+    const updatedProduct = await Product.update(parseInt(tcgplayer_Id, 10), {
       quantity,
       price,
       foil,
+      image_uri,
+      description,
+      set_name,
     });
 
     if (!updatedProduct) {

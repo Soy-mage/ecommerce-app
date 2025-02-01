@@ -5,6 +5,6 @@ const { getAllProducts, createProduct, getSpecificProduct, updateProduct} = requ
 router.get('/', getAllProducts);
 router.post('/', createProduct);
 router.get('/:id', getSpecificProduct);
-router.put('/', updateProduct);
+router.put('/:tcgplayer_Id', updateProduct);
 
 module.exports = router;
