@@ -66,6 +66,10 @@ body {
   color: #00bcd4;
 }
 
+.navbar .loginRegister {
+  display: flex;
+}
+
 .navbar .cta {
   background-color: #00bcd4;
   color: white;
@@ -228,4 +232,21 @@ button {
 
 button:hover {
   background-color: #0056b3 
+}
+
+.registration-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registration-page form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.oauth-buttons {
+  max-width: 300px;
+
 }

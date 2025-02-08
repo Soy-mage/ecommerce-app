@@ -5,10 +5,10 @@ const Product = {
     const result = await pool.query('SELECT * FROM products');
     return result.rows;
   },
-  create: async (name, price) => {
+  create: async (tcgplayer_id) => {
     const result = await pool.query(
-      'INSERT INTO products (name, price) VALUES ($1, $2) RETURNING *',
-      [name, price]
+      'INSERT INTO products (tcgplayer_id) VALUES ($1) RETURNING *',
+      [tcgplayer_id]
     );
     return result.rows[0];
   },

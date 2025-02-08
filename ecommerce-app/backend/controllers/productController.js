@@ -10,9 +10,9 @@ exports.getAllProducts = async (req, res) => {
 };
 
 exports.createProduct = async (req, res) => {
-  const { name, price } = req.body;
+  const { tcgplayer_id } = req.body;
   try {
-    const product = await Product.create(name, price);
+    const product = await Product.create(tcgplayer_id);
     res.status(201).json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -44,13 +44,14 @@ exports.getSpecificProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
   const { tcgplayer_Id } = req.params;
-  const { price, quantity, foil, image_uri, description, set_name } = req.body;
+  const { name, price, quantity, foil, image_uri, description, set_name } = req.body;
 
   try {
     const updatedProduct = await Product.update(parseInt(tcgplayer_Id, 10), {
+      name,
       quantity,
-      price,
       foil,
+      price,
       image_uri,
       description,
       set_name,

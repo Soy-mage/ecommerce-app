@@ -5,6 +5,8 @@ import NavBar from './components/NavBar.js';
 import Products from './components/Products.js';
 import ProductDetails from './components/ProductDetails.js';
 import Admin from './components/Admin.js';
+import Register from './components/Register.js';
+import Login from './components/Login.js';
 import { fetchProducts } from './redux/actions/fetchProducts.js';
 import {
   BrowserRouter as Router,
@@ -36,6 +38,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
               <Route path="/:tcgplayerId" element={<ProductDetails />} />
               <Route path="/696969" element={<Admin />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
         </div>

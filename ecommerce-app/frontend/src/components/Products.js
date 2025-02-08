@@ -1,23 +1,14 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector} from 'react-redux';
 import tcgplayerImage from './tcgplayer.png';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
-  } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Products = () => {
     const products = useSelector((state) => state.products.products);  
     const loading = useSelector((state) => state.products.loading);
     const error = useSelector((state) => state.products.error);
-    const scryfall = useSelector((state) => state.scryfall.scryfall); 
     // const test = useSelector((state) => state);
     console.log(products);
-    // console.log(scryfall);
     if (loading && products.length === 0) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 

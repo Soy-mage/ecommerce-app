@@ -2,21 +2,20 @@ const UserModel = require('../models/userModel');
 
 const UserController = {
     async registerUser(req, res) {
-        const { username, email, password } = req.body;
+        const { email, password } = req.body;
 
         try {
-            const existingUser = await UserModel.findUserByUsername(username);
+            const existingUser = await UserModel.findUserByEmail(email);
             if (existingUser) {
-                return res.status(400).json({ success: false, message: 'Username is already taken.' });
+                return res.status(400).json({ success: false, message: 'Email is already taken.' });
             }
 
-            const newUser = await UserModel.createUser(username, email, password);
+            const newUser = await UserModel.createUser(email, password);
             res.status(201).json({
                 success: true,
                 message: 'User registered successfully!',
                 data: {
                     id: newUser.id,
-                    username: newUser.username,
                     email: newUser.email,
                 }
             });

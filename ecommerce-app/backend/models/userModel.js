@@ -2,24 +2,16 @@ const pool = require('../config/db');
 const bcrypt = require('bcrypt');
 
 const UserModel = {
-    async createUser(username, email, password) {
+    async createUser(email, password) {
         try {
-            await pool.query('BEGIN');
 
             const hashedPassword = await bcrypt.hash(password, 10);
 
             const result = await pool.query(
-                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING id, username, email',
-                [username, email, hashedPassword]
+                'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING email',
+                [email, hashedPassword]
             );
             const newUser = result.rows[0];
-
-            await pool.query(
-                'INSERT INTO cart (username, user_id) VALUES ($1, $2)',
-                [newUser.username, newUser.id]
-            );
-
-            await pool.query('COMMIT');
             return newUser;
         } catch (error) {
             await pool.query('ROLLBACK');
@@ -28,17 +20,15 @@ const UserModel = {
         } 
     },
 
-    // currently unused
-    async findUserByUsername(username) {
-        const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+    async findUserByEmail(email) {
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
         return result.rows[0];
     }, 
-    // currently unused
 
     async updateEmail(userId, newEmail) {
         try {
             const result = await pool.query(
-                'UPDATE users SET email = $1 WHERE id = $2 RETURNING id, username, email',
+                'UPDATE users SET email = $1 WHERE id = $2 RETURNING id, email',
                 [newEmail, userId]
             );
             return result.rows[0];
@@ -54,7 +44,7 @@ const UserModel = {
             const hashedPassword = await bcrypt.hash(newPassword, 10);
 
             const result = await pool.query(
-                'UPDATE users SET password = $1 WHERE id = $2 RETURNING id, username',
+                'UPDATE users SET password = $1 WHERE id = $2 RETURNING id',
                 [hashedPassword, userId]
             );
             return result.rows[0];
