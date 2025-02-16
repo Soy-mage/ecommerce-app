@@ -84,6 +84,40 @@ body {
   background-color: #019ca1;
 }
 
+.loginRegister {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.welcome {
+  margin: 0;
+}
+
+.cart-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: auto;
+}
+
+.cart-button span {
+  margin-left: 0.5rem;
+}
+
+.logout-button {
+  background-color: #dc3545; /* Red color for logout */
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: auto;
+}
+
+.logout-button:hover {
+  background-color: #c82333; /* Darker red on hover */
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;

@@ -6,10 +6,8 @@ const router = express.Router();
 
 router.post('/register', UserController.registerUser);
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login'
-}));
+router.post('/login', UserController.login);
+router.post('/logout', UserController.logout);
 
 router.put('/update-email', UserController.updateEmail);
 

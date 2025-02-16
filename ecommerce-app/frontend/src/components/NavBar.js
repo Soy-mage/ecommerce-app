@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthContext';
+import { CartContext } from '../CartContext';
+import { useNavigate } from 'react-router-dom';
 
 export const NavBar = () => {
+    const { isLoggedIn, user, logout } = useContext(AuthContext);
+    const { cartItems } = useContext(CartContext);
+    const navigate = useNavigate();
+
+    const getUserSession = () => {
+        const userData = localStorage.getItem("user");
+        return userData ? JSON.parse(userData) : null;
+    };
+
+    // console.log(getUserSession()); // Log the userData from above
+
+    const handleClick = async () => {
+        await logout();
+        navigate('/');
+    }
     return (
         <div className="navbar">
             <h1 className="logo">MyWebsite</h1>
@@ -11,10 +29,22 @@ export const NavBar = () => {
                 <li>Contact</li>
             </ul>
             <div className='loginRegister'>
-                <Link to={'/login/'}><h3 className="cta">Login</h3></Link>
-                <Link to={'/register/'}><h3 className="cta">Register</h3></Link>
+                {isLoggedIn ? (
+                    <>
+                        <h3 className="welcome">Welcome back, {user.username}!</h3>
+                        <Link to={'/cart'}>
+                            <button className="cart-button">
+                                Cart {cartItems.length > 0 && <span>({cartItems.length})</span>}
+                            </button>
+                        </Link>
+                        <button onClick={handleClick} className="logout-button">Logout</button>
+                    </>
+                ) : (
+                    <>
+                        <Link to={'/login/'}><h3 className="cta">Login</h3></Link>
+                    </>
+                )}
             </div>
-
         </div>
     );
 };

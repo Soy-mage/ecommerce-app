@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { GoogleLogin } from "@react-oauth/google";
-import FacebookLogin from "react-facebook-login";
 import { register } from "../api-calls/apiCalls";
 import { useNavigate } from "react-router-dom";
 
@@ -51,15 +49,6 @@ const Register = () => {
         }
 
     };
-    const handleGoogleLogin = async (response) => {
-        console.log("Google Login Response:", response);
-        // Send the response to your backend for verification
-    };
-
-    const handleFacebookLogin = async (response) => {
-        console.log("Facebook Login Response:", response);
-        // Send the response to your backend for verification
-    };
 
     return (
         <div className="registration-page">
@@ -98,19 +87,6 @@ const Register = () => {
                 {success && <p style={{ color: "green" }}>{success}</p>}
                 <button type="submit">Register</button>
             </form>
-
-            <div className="oauth-buttons">
-                <GoogleLogin
-                    onSuccess={handleGoogleLogin}
-                    onError={() => console.log("Google Login Failed")}
-                />
-                <FacebookLogin
-                    appId="YOUR_FACEBOOK_APP_ID"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    callback={handleFacebookLogin}
-                />
-            </div>
         </div>
     );
 };

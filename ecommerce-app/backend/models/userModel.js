@@ -14,9 +14,8 @@ const UserModel = {
             const newUser = result.rows[0];
             return newUser;
         } catch (error) {
-            await pool.query('ROLLBACK');
-            console.error('Error creating user and cart:', error.message);
-            throw new Error('Failed to create user and cart');
+            console.error('Error creating user:', error.message);
+            throw new Error('Failed to create user');
         } 
     },
 
@@ -52,6 +51,9 @@ const UserModel = {
             console.error('Error updating password:', error.message);
             throw new Error('Failed to update password');
         }
+    },
+    async validatePassword(password, hashedPassword) {
+        return await bcrypt.compare(password, hashedPassword);
     },
 };
 
