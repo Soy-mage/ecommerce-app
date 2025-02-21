@@ -1,13 +1,13 @@
-import React from 'react';
+import React , { useState } from 'react';
 import { useSelector} from 'react-redux';
 import tcgplayerImage from './tcgplayer.png';
 import { Link } from "react-router-dom";
+import { addToCart } from '../api-calls/apiCalls';
 
 const Products = () => {
     const products = useSelector((state) => state.products.products);  
     const loading = useSelector((state) => state.products.loading);
     const error = useSelector((state) => state.products.error);
-    // const test = useSelector((state) => state);
     console.log(products);
     if (loading && products.length === 0) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
@@ -15,8 +15,16 @@ const Products = () => {
     const tcgplayerLink = (number) => {
         return `https://www.tcgplayer.com/product/${number}/`
     }
-
-    // console.log(products);
+    
+    const addItemToCart = async (product) => {
+        const user = JSON.parse(localStorage.getItem('user'));
+        try {
+            await addToCart(user.id, product.id, 1);
+            console.log('product added successfully');
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="products">
@@ -33,6 +41,9 @@ const Products = () => {
                         </a>
 
                     </div>
+                    <button className="add-to-cart-btn" onClick={() => {addItemToCart(product)}}>
+                        +
+                    </button>
 
                 </div>
             ))}

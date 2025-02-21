@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
@@ -39,14 +39,20 @@ const Login = () => {
     };
 
     const handleGoogleLogin = () => {
-        // Redirect to Google OAuth endpoint
-        window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/google`;
+        window.location.href = `${process.env.REACT_APP_BACKEND_URL}/api/users/google`;
     };
 
-    const handleFacebookLogin = () => {
-        // Redirect to Facebook OAuth endpoint
-        window.location.href = `${process.env.REACT_APP_BACKEND_URL}/auth/facebook`;
-    };
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userData = urlParams.get('user');
+    
+        if (userData) {
+          const user = JSON.parse(decodeURIComponent(userData));
+          // console.log(user);
+          login(user);
+          navigate('/');
+        }
+      }, [login, navigate]);
 
     return (
         <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px" }}>
@@ -84,10 +90,9 @@ const Login = () => {
                         <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                     </span>
                 </div>
-                <button
+                <button className="login"
                     type="submit"
                     disabled={loading}
-                    style={{ width: "100%", padding: "10px", backgroundColor: loading ? "#ccc" : "green", color: "#fff", border: "none", cursor: "pointer" }}
                 >
                     {loading ? "Logging in..." : "Login"}
                 </button>
@@ -95,17 +100,10 @@ const Login = () => {
 
             <div style={{ margin: "20px 0", textAlign: "center" }}>
                 <p>Or</p>
-                <button
+                <button className="google"
                     onClick={handleGoogleLogin}
-                    style={{ width: "100%", padding: "10px", backgroundColor: "#db4437", color: "#fff", border: "none", cursor: "pointer", marginBottom: "10px" }}
                 >
                     Sign in with Google
-                </button>
-                <button
-                    onClick={handleFacebookLogin}
-                    style={{ width: "100%", padding: "10px", backgroundColor: "#1877F2", color: "#fff", border: "none", cursor: "pointer" }}
-                >
-                    Sign in with Facebook
                 </button>
             </div>
 

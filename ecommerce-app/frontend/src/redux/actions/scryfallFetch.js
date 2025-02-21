@@ -1,11 +1,5 @@
-      /* const tcgplayerIds = [
-      553283, 91106, 239741, 240103, 240325, 239402, 240037, 
-      226669, 226670, 226671, 226673, 226674, 226675, 226676, 
-      206024, 155766, 151826,
-    ]; */
 import axios from 'axios';
 
-// Utility function to add a delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const scryfallFetch = (scryfallIds) => {
@@ -23,10 +17,10 @@ export const scryfallFetch = (scryfallIds) => {
       }
 
       dispatch({ type: 'SCRYFALL_FETCH_SUCCESS', payload: scryfallData });
-      return scryfallData; // Return the fetched data
+      return scryfallData;
     } catch (error) {
       dispatch({ type: 'SCRYFALL_FETCH_FAILURE', payload: error.message });
-      throw error; // Throw the error to propagate it
+      throw error;
     }
   };
 };

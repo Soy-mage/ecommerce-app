@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts } from '../redux/actions/fetchProducts';
 import { scryfallFetch } from '../redux/actions/scryfallFetch';
-import { updateProduct, addProduct } from '../api-calls/apiCalls.js';
+import { updateProduct, addProduct, deleteProduct } from '../api-calls/apiCalls.js';
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -37,6 +36,22 @@ const Admin = () => {
       alert('Please enter a valid tcgplayer ID.');
     }
   };
+  
+  const handleDeleteProduct = async () => {
+    if (selectedProductId) {
+      try {
+        await deleteProduct(selectedProductId);
+        setSelectedProductId('');
+        alert('Product deleted successfully!');
+      } catch (error) {
+        console.error('Error deleting product:', error.message);
+        alert('Failed to delete product. Please try again.');
+      }
+      
+    } else {
+      alert('Please select a product to delete.');
+    }
+  };
 
   const handleUpdateProduct = async () => {
     if (selectedProductId) {
@@ -60,35 +75,19 @@ const Admin = () => {
     }
   };
 
-  const handleDeleteProduct = () => {
-    if (selectedProductId) {
-      //backend action
-
-
-      setSelectedProductId('');
-      alert('Product deleted successfully!');
-    } else {
-      alert('Please select a product to delete.');
-    }
-  };
-
 const handleScryfallDailyUpdate = async () => {
   try {
     const scryfallIds = [];
     for (let i = 0; i < products.length; i++) {
       scryfallIds.push(products[i].tcgplayer_id); }
-      // Step 1: Fetch Scryfall data and wait for it to complete
       const scryfallData = await dispatch(scryfallFetch(scryfallIds));
-    // Step 2: Ensure scryfall data is available
     if (!scryfallData || scryfallData.length === 0) {
       throw new Error('No Scryfall data available.');
     }
-      // Step 3: Loop through the scryfall data and update each product
       for (let i = 0; i < scryfallData.length; i++) {
         const product = scryfallData[i];
         const tcgplayer_id = product.tcgplayer_id;
 
-        // Construct the fields object
         const fields = {
           name: product.name,
           price: product.prices?.usd,
@@ -97,13 +96,11 @@ const handleScryfallDailyUpdate = async () => {
           set_name: product.set_name,
         };
 
-        // Step 4: Update the product
         await updateProduct(tcgplayer_id, fields);
 
         console.log(`Updated product with tcgplayer_id: ${tcgplayer_id}`);
       }
 
-      // Step 5: Notify the user
       alert('All products updated successfully.');
     } catch (error) {
       console.error('Error updating products:', error.message);
@@ -116,7 +113,6 @@ const handleScryfallDailyUpdate = async () => {
     <div className="admin-page">
       <h1>Admin Dashboard</h1>
 
-      {/* Product Selection Dropdown */}
       <div className="section">
         <h2>Update Product</h2>
         <select value={selectedProductId} onChange={handleProductSelect}>
@@ -128,7 +124,6 @@ const handleScryfallDailyUpdate = async () => {
           ))}
         </select>
 
-        {/* Foil Checkbox */}
         <label>
           <input
             type="checkbox"
@@ -138,7 +133,6 @@ const handleScryfallDailyUpdate = async () => {
           Foil
         </label>
 
-        {/* Quantity Input */}
         <label>
           Quantity:
           <input
@@ -148,14 +142,11 @@ const handleScryfallDailyUpdate = async () => {
           />
         </label>
 
-        {/* Update Button */}
         <button onClick={handleUpdateProduct}>Update Product</button>
 
-        {/* Delete Button */}
         <button onClick={handleDeleteProduct}>Delete Product</button>
       </div>
 
-      {/* Add New Product Section */}
       <div className="section">
         <h2>Add New Product</h2>
         <label>

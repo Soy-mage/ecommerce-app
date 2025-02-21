@@ -26,6 +26,19 @@ export const addProduct = async (tcgplayer_id) => {
     }
 };
 
+export const deleteProduct = async (tcgplayer_id) => {
+    try {
+        const response = await axios.delete(
+            `${process.env.REACT_APP_BACKEND_URL}/api/products/`, 
+            { tcgplayer_id }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error deleting product:', error.message);
+        throw new Error('Failed to delete product.')
+    }
+};
+
 export const register = async (email, password) => {
     try {
         const response = await axios.post(
@@ -42,4 +55,17 @@ export const register = async (email, password) => {
             throw new Error('Error with registration');
         }
     }
-}
+};
+
+export const addToCart = async (userId, id, quantity) => {
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/api/cart/add-item`, 
+            { "userId": userId, "productId": id, "quantity": quantity }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('There was an error adding to cart:', error.message);
+        throw new Error('Error adding to cart');
+    }
+};

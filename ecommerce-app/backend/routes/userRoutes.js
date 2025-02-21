@@ -13,6 +13,14 @@ router.put('/update-email', UserController.updateEmail);
 
 router.put('/update-password', UserController.updatePassword);
 
-
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get(
+    '/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+      // Successful authentication, redirect to the frontend
+      res.redirect(`${process.env.GOOGLE_REDIRECT_URI}/login?user=${encodeURIComponent(JSON.stringify(req.user))}`);
+    }
+  );
 
 module.exports = router;

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { register } from "../api-calls/apiCalls";
 import { useNavigate } from "react-router-dom";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Register = () => {
     const [email, setEmail] = useState("");
@@ -75,17 +77,21 @@ const Register = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
-                <label>
-                    <input
-                        type="checkbox"
-                        checked={showPassword}
-                        onChange={() => setShowPassword(!showPassword)}
-                    />
-                    Show Passwords
-                </label>
+                    <span
+                        style={{
+                            right: "10px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            cursor: "pointer",
+                            marginTop: "20px",
+                        }}
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                    </span>
                 {error && <p style={{ color: "red" }}>{error}</p>}
                 {success && <p style={{ color: "green" }}>{success}</p>}
-                <button type="submit">Register</button>
+                <button className="login" type="submit">Register</button>
             </form>
         </div>
     );

@@ -7,9 +7,13 @@ const Product = {
   },
   create: async (tcgplayer_id) => {
     const result = await pool.query(
-      'INSERT INTO products (tcgplayer_id) VALUES ($1) RETURNING *',
-      [tcgplayer_id]
+      'INSERT INTO products (tcgplayer_id, quantity, foil) VALUES ($1, $2, $3) RETURNING *',
+      [tcgplayer_id, 1, null]
     );
+    return result.rows[0];
+  },
+  delete: async (tcgplayer_id) => {
+    const result = await pool.query('DELETE FROM products WHERE tcgplayer_id = $1 RETURNING *', [tcgplayer_id]);
     return result.rows[0];
   },
   getSpecific: async (id) => {

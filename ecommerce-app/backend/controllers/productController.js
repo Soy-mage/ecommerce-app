@@ -19,6 +19,16 @@ exports.createProduct = async (req, res) => {
   }
 };
 
+exports.deleteProduct = async (req, res) => {
+  const { tcgplayer_id } = req.body;
+  try {
+    const deleted = await Product.delete(tcgplayer_id);
+    res.status(200).json(deleted);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.getSpecificProduct = async (req, res) => {
   const { id } = req.params;
 

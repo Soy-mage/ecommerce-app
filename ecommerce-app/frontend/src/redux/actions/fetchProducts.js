@@ -5,12 +5,12 @@ export const fetchProducts = () => async (dispatch) => {
   
     try {
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products/`);
-      // console.log(response);
+
       if (response.statusText != "OK") {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = [ ...response.data ];
-      // console.log(data);
+
       dispatch({ type: 'DB_FETCH_SUCCESS', payload: data });
     } catch (error) {
       dispatch({ type: 'DB_FETCH_FAILURE', payload: error.message });
