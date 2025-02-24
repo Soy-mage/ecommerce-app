@@ -1,26 +1,26 @@
-const initialProductsState = {
-    products: [],
+const initialCartState = {
+    cart: [],
     loading: false,
     error: null,
   };
 
-const productsReducer = (state = initialProductsState, action) => {
+const cartReducer = (state = initialCartState, action) => {
     switch (action.type) {
-      case 'PRODUCTS_FETCH_REQUEST':
+      case 'CART_FETCH_REQUEST':
         return {
           ...state,
           loading: true,
           error: null,
         };
   
-      case 'PRODUCTS_FETCH_SUCCESS':
+      case 'CART_FETCH_SUCCESS':
         return {
           ...state,
           loading: false,
-          products: action.payload,
+          cart: action.payload,
         };
   
-      case 'PRODUCTS_FETCH_FAILURE':
+      case 'CART_FETCH_FAILURE':
         return {
           ...state,
           loading: false,
@@ -32,4 +32,4 @@ const productsReducer = (state = initialProductsState, action) => {
     }
   };
   
-  export default productsReducer;
+  export default cartReducer;

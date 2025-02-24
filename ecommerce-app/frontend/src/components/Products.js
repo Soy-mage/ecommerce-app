@@ -1,20 +1,20 @@
-import React , { useState } from 'react';
-import { useSelector} from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import tcgplayerImage from './tcgplayer.png';
 import { Link } from "react-router-dom";
 import { addToCart } from '../api-calls/apiCalls';
 
 const Products = () => {
-    const products = useSelector((state) => state.products.products);  
+    const products = useSelector((state) => state.products.products);
+    const scryfall = useSelector((state) => state.scryfall.scryfall);
+    console.log(scryfall);
     const loading = useSelector((state) => state.products.loading);
     const error = useSelector((state) => state.products.error);
     console.log(products);
     if (loading && products.length === 0) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
-    const tcgplayerLink = (number) => {
-        return `https://www.tcgplayer.com/product/${number}/`
-    }
+    const tcgplayerLink = (number) => { return `https://www.tcgplayer.com/product/${number}/` };
     
     const addItemToCart = async (product) => {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -31,7 +31,7 @@ const Products = () => {
             {products.map((product) => (
                 <div className="product" key={product.tcgplayer_id}>
                     <h4 className="product-name">{product.name}</h4>
-                    <Link to ={`/${product.tcgplayer_id}`}><img className="product-image" src={product.image_uri} alt="product image"></img></Link>
+                    <Link to ={`/product/${product.tcgplayer_id}`}><img className="product-image" src={product.image_uri} alt="product image"></img></Link>
                     <div className="prices">
 
                         <h3 className="product-price">✔${(Math.floor(product.price * 90)) / 100}</h3>
@@ -41,10 +41,10 @@ const Products = () => {
                         </a>
 
                     </div>
-                    <button className="add-to-cart-btn" onClick={() => {addItemToCart(product)}}>
+                    <button className="add-to-cart-btn" onClick={() => {addItemToCart(product)}} title="Add to Cart">
                         +
                     </button>
-
+                    {/* <h4 className="add-to-cart-msg">Add to Cart</h4> */}
                 </div>
             ))}
         </div>

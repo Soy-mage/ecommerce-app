@@ -1,11 +1,14 @@
 import { combineReducers } from 'redux';
 import scryfallReducer from './scryfallReducer';
 import productsReducer from './productsReducer';
+import cartReducer from './cartReducer';
+
+
 
 const rootReducer = combineReducers({
   scryfall: scryfallReducer,
   products: productsReducer,
-  // Add more reducers as needed
+  cart: cartReducer
 });
 
 export default rootReducer;

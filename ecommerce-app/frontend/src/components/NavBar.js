@@ -1,21 +1,13 @@
 import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
-import { CartContext } from '../CartContext';
 import { useNavigate } from 'react-router-dom';
 
 export const NavBar = () => {
     const { isLoggedIn, user, logout } = useContext(AuthContext);
-    const { cartItems } = useContext(CartContext);
     const navigate = useNavigate();
-
-    const getUserSession = () => {
-        const userData = localStorage.getItem("user");
-        return userData ? JSON.parse(userData) : null;
-    };
-
-    // console.log(getUserSession()); // Log the userData from above
-
+    const cart = useSelector((state) => state.cart.cart);
     const handleClick = async () => {
         await logout();
         navigate('/');
@@ -31,10 +23,10 @@ export const NavBar = () => {
             <div className='loginRegister'>
                 {isLoggedIn ? (
                     <>
-                        <h3 className="welcome">Welcome back, {user.username}!</h3>
+                        <h3 className="welcome"> &#40;{user.email}&#41;</h3>
                         <Link to={'/cart'}>
                             <button className="cart-button">
-                                Cart {cartItems.length > 0 && <span>({cartItems.length})</span>}
+                            🛒{cart.length > 0 && <span>{cart.length}</span>}
                             </button>
                         </Link>
                         <button onClick={handleClick} className="logout-button">Logout</button>
