@@ -28,6 +28,7 @@ body {
   padding: 10px 20px;
   position: fixed;
   width: 100%;
+  z-index: 1000;
 }
 
 .spacer {
@@ -44,13 +45,13 @@ body {
 
 .nav-links {
   display: flex;
-  list-style: none; /* Remove bullet points */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  gap: 20px; /* Space between links */
-  position: absolute; /* Position absolutely */
-  left: 50%; /* Move to the center */
-  transform: translateX(-50%); /* Adjust for exact centering */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   color: white;
 }
 
@@ -92,23 +93,6 @@ body {
   background-color: #019ca1;
 }
 
-.welcome {
-  margin: 0;
-  font-size: .75rem;
-  color: white;
-}
-
-@media only screen and (max-width: 1000px) {
-  .welcome {
-    background-color: #333;
-    padding: 5px 20px 5px 10px;
-    border-radius: 5px;
-    position: relative;
-    top: 30px;
-    left: 200px;
-  }
-}
-
 .cart-button {
   background-color: #007bff;
   color: white;
@@ -130,7 +114,6 @@ body {
 
 .logout-button {
   background-color: #dc3545;
-  color: white;
   border: none;
   cursor: pointer;
   margin: 0px;
@@ -141,11 +124,61 @@ body {
   background-color: #c82333;
 }
 
+.welcome {
+  color: white;
+  font-size: 12px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .welcome {
+    background-color: #333;
+    padding: 5px 20px 5px 10px;
+    border-radius: 5px;
+    position: relative;
+    top: 30px;
+    left: 200px;
+  }
+}
+
+.error {
+  text-align: center;
+  font-size: 40px;
+}
+
 .products {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
+}
+
+.products .disclaimer {
+  text-align: center;
+  background-color: white;
+  font-size: 20px;
+  border-radius: 10px;
+  width: 240px;
+  border: 1px solid black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn ease 1s;
+  max-height: 24rem;
+  -webkit-animation: fadeIn ease 1s;
+  -moz-animation: fadeIn ease 1s;
+  -o-animation: fadeIn ease 1s;
+  -ms-animation: fadeIn ease 1s;
+}
+
+.products .disclaimer .product-price {
+  color: #16c42d;
+}
+
+.products .disclaimer .tcgplayer-price {
+  color: #74A1D3;
+}
+
+.products .disclaimer img {
+  width: 1.2rem;
+  height: 1.4rem;
 }
 
 .product {
@@ -169,7 +202,7 @@ body {
   flex-direction: row;
 }
 
-.product:hover .product-name{
+.product:hover .product-name {
   opacity: 0.92;
 }
 
@@ -228,7 +261,7 @@ body {
   bottom: -334px;
   left: 20px;
   white-space: nowrap;
-  z-index: 1000;
+  text-align: center;
 }
 
 .product-image {
@@ -238,9 +271,19 @@ body {
   transition: all .5s;
 }
 
-
 .simple {
   width: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.simple .prices .product-price {
+  margin: 0 20px;
+}
+
+.simple .prices a {
+  margin: 0 20px;
 }
 
 .extended-info {
@@ -248,7 +291,9 @@ body {
   background-color: white;
   border: #333;
   border-radius: 10px;
-  border-color:#333;
+  border-color: #333;
+  border: 1px solid black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .extended-info h1 {
@@ -260,10 +305,31 @@ body {
 }
 
 .product-details .product-image {
-  width: 25rem;
+  width: 22rem;
   -webkit-transition: all .5s;
   -moz-transition: all .5s;
   transition: all .5s;
+}
+
+.product-details .product-details-name {
+  padding: 10px;
+}
+
+.product-details .description {
+  padding: 10px;
+}
+
+.product-details .set-name {
+  padding: 10px;
+}
+
+.product-details .prices {
+  font-size: 32px;
+}
+
+.product-details .prices img {
+  width: 2.4rem;
+  height: 2.8rem;
 }
 
 .prices {
@@ -326,7 +392,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3 
+  background-color: #0056b3
 }
 
 .registration-page {
@@ -351,7 +417,7 @@ button:hover {
 }
 
 .login {
-  width: 100%; 
+  width: 100%;
   padding: 10px;
   color: #fff;
   border: none;
@@ -361,9 +427,143 @@ button:hover {
 .google {
   width: 100%;
   padding: 10px;
-  background-color: #db4437; 
+  background-color: #db4437;
   color: #fff;
   border: none;
   cursor: pointer;
   margin-bottom: "10px"
+}
+
+.cart {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 1%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart .product {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  max-width: 60%
+}
+
+.cart .text {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0 10px;
+}
+
+.cart .product a {
+  max-width: 216px;
+  max-height: 300px;
+  min-width: 108px;
+  min-height: 150px;
+}
+
+.cart .product-image {
+  width: 65%;
+  border-radius: 8px;
+  margin: 6px 0px 2px 0px;
+}
+
+.cart .product-text {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart .product-name {
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 1;
+  color: black;
+  background-color: white;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  position: unset;
+  max-height: 1.5rem;
+  z-index: 1;
+}
+
+.cart .prices {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.cart .product-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.cart .tcgplayer-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.cart .tcgplayer-link:hover {
+  background-color: #0056b3;
+}
+
+.rainbow-text {
+  background: linear-gradient(90deg,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(255, 154, 0, 1) 10%,
+      rgba(208, 222, 33, 1) 20%,
+      rgba(79, 220, 74, 1) 30%,
+      rgba(63, 218, 216, 1) 40%,
+      rgba(47, 201, 226, 1) 50%,
+      rgba(28, 127, 238, 1) 60%,
+      rgba(95, 21, 242, 1) 70%,
+      rgba(186, 12, 248, 1) 80%,
+      rgba(251, 7, 217, 1) 90%,
+      rgba(255, 0, 0, 1) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.order-total {
+  position: fixed;
+  text-align: center;
+  border-radius: 10px;
+  right: 0;
+  top: 100;
+  width: 35%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-right: 1%;
+}
+
+.order-total button {
+  background: goldenrod;
+  margin: 20px auto;
+  border-radius: 5px;
 }

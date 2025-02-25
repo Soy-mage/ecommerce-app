@@ -28,6 +28,11 @@ const Products = () => {
 
     return (
         <div className="products">
+            <div className="disclaimer">
+                <span className="product-price">✔My Price</span> / 
+                <br/><img src={tcgplayerImage} alt="market price"></img><span className="tcgplayer-price">TCGPlayer Market Price</span>
+                <br/>*All items' condition are guaranteed to be Near Mint or Lightly Played. 
+            </div>
             {products.map((product) => (
                 <div className="product" key={product.tcgplayer_id}>
                     <h4 className="product-name">{product.name}</h4>
@@ -44,7 +49,6 @@ const Products = () => {
                     <button className="add-to-cart-btn" onClick={() => {addItemToCart(product)}} title="Add to Cart">
                         +
                     </button>
-                    {/* <h4 className="add-to-cart-msg">Add to Cart</h4> */}
                 </div>
             ))}
         </div>

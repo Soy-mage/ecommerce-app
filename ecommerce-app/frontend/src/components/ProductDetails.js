@@ -23,11 +23,11 @@ const ProductDetails = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading spinner or message
+    return <div className="error">Loading...</div>; // Show a loading spinner or message
   }
 
   if (!product) {
-    return <div>Product not found.</div>; // Handle case where product is not found
+    return <div className="error">Product not found.</div>; // Handle case where product is not found
   }
 
   return (
@@ -35,7 +35,7 @@ const ProductDetails = () => {
       <div className="simple">
         <img className="product-image" src={product.image_uri} alt="product image"></img>
         <div className="prices">
-          <h3 className="product-price">✔${(Math.floor(product.price * 90)) / 100}</h3>
+          <h3 className="product-price">${(Math.floor(product.price * 90)) / 100}</h3>
           <a href={tcgplayerLink(product.tcgplayer_id)} target="_blank" rel="noopener noreferrer" title="Check out this card on the TCGPlayer Market!">
             <img src={tcgplayerImage} alt="market price"></img>
             <h3 className="tcgplayer-price">${product.price}</h3>

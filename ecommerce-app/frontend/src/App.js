@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './components/NavBar.js';
@@ -68,7 +67,7 @@ function About() {
 
 function NotFound() {
   return (
-    <div>
+    <div className="error">
       <h1>404</h1>
       <p>Page not found!</p>
     </div>

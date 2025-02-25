@@ -14,7 +14,7 @@ export const NavBar = () => {
     }
     return (
         <div className="navbar">
-            <h1 className="logo">MyWebsite</h1>
+            <h1 className="logo">Card Bazaar</h1>
             <ul className="nav-links">
                 <Link to={'/'}><li>Home</li></Link>
                 <Link to={'/696969'}><li>Admin</li></Link>
