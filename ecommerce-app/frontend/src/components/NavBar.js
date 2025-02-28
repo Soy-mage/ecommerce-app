@@ -14,11 +14,11 @@ export const NavBar = () => {
     }
     return (
         <div className="navbar">
-            <h1 className="logo">Card Bazaar</h1>
+            <Link to={'/'}><h1 className="logo">Card Bazaar</h1></Link>
             <ul className="nav-links">
                 <Link to={'/'}><li>Home</li></Link>
                 <Link to={'/696969'}><li>Admin</li></Link>
-                <li>Contact</li>
+                <Link to={'/contact'}><li>Contact</li></Link>
             </ul>
             <div className='loginRegister'>
                 {isLoggedIn ? (

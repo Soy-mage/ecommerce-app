@@ -6,6 +6,7 @@ import ProductDetails from './components/ProductDetails.js';
 import Admin from './components/Admin.js';
 import Register from './components/Register.js';
 import Login from './components/Login.js';
+import Contact from './components/Contact.js';
 import { Cart } from './components/Cart.js';
 import { fetchProducts } from './redux/actions/fetchProducts.js';
 import { fetchCart } from './redux/actions/fetchCart.js';
@@ -49,6 +50,7 @@ function App() {
             <Route path="/696969" element={<Admin />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </div>

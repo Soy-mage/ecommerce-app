@@ -82,13 +82,14 @@ const CartController = {
     },
     async createOrder(req, res) {
         const { userId } = req.params;
+        const { name, address1, address2, city, state, zip} = req.body;
 
         if ( !userId ) {
             return res.status(400).json({ success: false, message: 'User ID is required' });
         }
 
         try {
-            const order = await CartModel.createNewOrder(userId);
+            const order = await CartModel.createNewOrder(userId, name, address1, address2, city, state, zip);
             res.status(200).json({
                 success: true,
                 message: 'Order created successfully',

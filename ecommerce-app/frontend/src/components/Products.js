@@ -29,8 +29,8 @@ const Products = () => {
     return (
         <div className="products">
             <div className="disclaimer">
-                <span className="product-price">✔My Price</span> / 
-                <br/><img src={tcgplayerImage} alt="market price"></img><span className="tcgplayer-price">TCGPlayer Market Price</span>
+                <span className="product-price">✔My Price</span> 
+                <div><img src={tcgplayerImage} alt="market price"></img><span className="tcgplayer-price">TCGPlayer Market</span></div>
                 <br/>*All items' condition are guaranteed to be Near Mint or Lightly Played. 
             </div>
             {products.map((product) => (

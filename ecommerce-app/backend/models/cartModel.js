@@ -82,30 +82,25 @@ const CartModel = {
             throw new Error('Failed to find cart');
         }
     },
-    async createNewOrder(userId) {
+    async createNewOrder(userId, name, address1, address2, city, state, zip) {
         try {
-            // Create the order
             const orderResult = await pool.query(
-                'INSERT INTO orders (user_id) VALUES ($1) RETURNING *',
-                [userId]
+                'INSERT INTO orders (user_id, name, address_1, address_2, city, state, zip) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                [userId, name, address1, address2, city, state, zip]
             );
             const order = orderResult.rows[0];
             console.log(order);
 
-            // Start a transaction
             await pool.query('BEGIN');
 
-            // Fetch cart items
             const cartItems = await pool.query(
                 'SELECT * FROM cart_items WHERE user_id = $1',
                 [userId]
             );
-            //console.log(cartItems);
             if (cartItems.rows.length === 0) {
                 throw new Error('Cart is empty, cannot create order');
             }
             let itemIncrement = 0;
-            // Add items to the order
             const orderItemsQueries = cartItems.rows.map((item) => {
                 itemIncrement++;
                 console.log(`Current item is ${itemIncrement} and order number is ${order.id}.`)
@@ -115,11 +110,7 @@ const CartModel = {
                 );
             });
             await Promise.all(orderItemsQueries);
-
-            // Delete user's cart items
             await pool.query('DELETE FROM cart_items WHERE user_id = $1', [userId]);
-
-            // Commit transaction
             await pool.query('COMMIT');
 
             return order;

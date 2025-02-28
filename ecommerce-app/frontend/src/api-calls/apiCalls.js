@@ -69,3 +69,16 @@ export const addToCart = async (userId, id, quantity) => {
         throw new Error('Error adding to cart');
     }
 };
+
+export const createOrder = async (userId, name, address1, address2, city, state, zip) => {
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_BACKEND_URL}/api/cart/${userId}/checkout`, 
+            { "name": name, "address1": address1, "address2": address2, "city": city, "state": state, "zip": zip}
+        );
+        return response.data;
+    } catch (error) {
+        console.log("There was an error placing the order:", error.message);
+        throw new Error('Error placing order');
+    }
+}

@@ -129,17 +129,6 @@ body {
   font-size: 12px;
 }
 
-@media only screen and (max-width: 1000px) {
-  .welcome {
-    background-color: #333;
-    padding: 5px 20px 5px 10px;
-    border-radius: 5px;
-    position: relative;
-    top: 30px;
-    left: 200px;
-  }
-}
-
 .error {
   text-align: center;
   font-size: 40px;
@@ -154,10 +143,16 @@ body {
 
 .products .disclaimer {
   text-align: center;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
   background-color: white;
   font-size: 20px;
   border-radius: 10px;
   width: 240px;
+  height: 15rem;
   border: 1px solid black;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   animation: fadeIn ease 1s;
@@ -553,7 +548,6 @@ button:hover {
   text-align: center;
   border-radius: 10px;
   right: 0;
-  top: 100;
   width: 35%;
   background-color: #f0f0f0;
   padding: 20px;
@@ -566,4 +560,70 @@ button:hover {
   background: goldenrod;
   margin: 20px auto;
   border-radius: 5px;
+}
+
+.checkout {
+  position: fixed;
+  text-align: center;
+  border-radius: 10px;
+  right: 0;
+  top: 320px;
+  width: 35%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  margin-right: 1%;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout .input-field {
+ padding: 1rem;
+ font-size: 1rem;
+}
+
+.checkout button {
+  font-size: 1.5rem;
+}
+
+.contact {
+  margin: 20px;
+}
+
+@media only screen and (max-height: 775px) {
+  .welcome {
+    background-color: #333;
+    padding: 2px 14px 2px 10px;
+    border-radius: 5px;
+    position: relative;
+    top: 30px;
+    left: 200px;
+  }
+  .cart .product-image {
+    max-width: 150px;
+  }
+
+  .order-total {
+    font-size: .5rem;
+  }
+
+  .order-total button {
+    font-size: .5rem;
+  }
+
+  .checkout {
+    top: 230px;
+    font-size: .5rem;
+    overflow: auto;
+  }
+
+  .checkout .input-field{
+    padding: .25rem;
+  }
 }
